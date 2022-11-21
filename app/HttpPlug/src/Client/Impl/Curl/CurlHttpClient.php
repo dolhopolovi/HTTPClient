@@ -29,6 +29,10 @@ class CurlHttpClient extends AHttpClient implements ClientInterface
      * @param  RequestInterface  $request
      * @return ResponseInterface
      * @throws CurlInitHandlerException
+     * @throws InvalidArgumentException
+     * @throws CurlSSLException
+     * @throws CurlCallbackException
+     * @throws RequestException
      */
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
