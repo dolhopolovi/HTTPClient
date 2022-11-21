@@ -47,7 +47,7 @@ class JWTAuthMiddleware
      * @param  RequestInterface  $request
      * @param  callable  $next
      * @return mixed
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Psr\SimpleCache\InvalidArgumentException|ClientExceptionInterface
      */
     public function handleRequest(RequestInterface $request, callable $next): mixed
     {
