@@ -16,7 +16,10 @@ class JWTAuthTest extends TestCase
 {
 
     /**
+     * "Expect" request header equal to token
+     *
      * @return void
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function testBearerAuthListener(): void
     {
