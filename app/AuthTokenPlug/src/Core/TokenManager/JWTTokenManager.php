@@ -57,6 +57,7 @@ class JWTTokenManager
 
     /**
      * @return string|null
+     * @throws ClientExceptionInterface
      */
     private function apiLogin(): ?string
     {
