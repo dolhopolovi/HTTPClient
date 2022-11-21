@@ -19,7 +19,7 @@ class JWTTokenManager
 
     public function __construct(
         private readonly JWTAuthData $jwtAuthData,
-        private readonly CurlHttpClient $client = new CurlHttpClient(),
+        private readonly ClientInterface $client,
         private readonly JWTTokenParser $jwtTokenParser = new JWTTokenParser()
     ) {
 
