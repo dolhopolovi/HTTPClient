@@ -12,6 +12,11 @@ use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
 class BasicAuthMiddleware implements IMiddleware
 {
 
+    /**
+     * @param  string  $username
+     * @param  string  $password
+     * @throws InvalidArgumentException
+     */
     public function __construct(
         private readonly string $username,
         private readonly string $password
