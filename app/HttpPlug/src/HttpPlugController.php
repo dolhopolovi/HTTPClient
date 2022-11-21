@@ -41,14 +41,11 @@ class HttpPlugController
     }
 
     /**
-     * Sends a request.
-     *
-     * @param  string  $method  The request method to use
-     * @param  string  $url  The URL to call
-     * @param  array  $headers  An array of request headers
-     * @param  string  $body  The request content
-     *
-     * @return ResponseInterface The response object
+     * @param  string  $method
+     * @param  string  $url
+     * @param  array  $headers
+     * @param  string  $body
+     * @return ResponseInterface
      */
     private function request(string $method, string $url, array $headers = [], string $body = ''): ResponseInterface
     {
@@ -78,6 +75,8 @@ class HttpPlugController
     }
 
     /**
+     * @param  RequestInterface  $request
+     * @return ResponseInterface
      * @throws ClientException
      * @throws LogicException
      * @throws InvalidArgumentException
