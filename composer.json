@@ -1,0 +1,30 @@
+{
+    "name": "merce/rest-client",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Merce\\RestClient\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Merce\\RestClient\\Test\\": "tests"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ihor-Severyn Dolhopolov",
+            "email": "krebtos@gmail.com"
+        }
+    ],
+    "require": {
+        "nyholm/psr7": "^1.5",
+        "psr/http-client": "^1.0",
+        "php-http/httplug": "^2.3",
+        "ext-curl": "*",
+        "cache/array-adapter": "^1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
