@@ -2,14 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\HttpPlug\src\TokenManager;
+namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenManager;
 
 use Nyholm\Psr7\Request;
+use Psr\Http\Client\ClientInterface;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Psr\SimpleCache\InvalidArgumentException;
-use Merce\RestClient\TokenParser\src\Impl\JWTTokenParser;
-use Merce\RestClient\HttpPlug\src\TokenManager\DTO\JWTAuthData;
-use Merce\RestClient\HttpPlug\src\Client\Impl\Curl\CurlHttpClient;
+use Psr\Http\Client\ClientExceptionInterface;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTAuthData;
+use Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\Impl\JWTTokenParser;
 
 class JWTTokenManager
 {
