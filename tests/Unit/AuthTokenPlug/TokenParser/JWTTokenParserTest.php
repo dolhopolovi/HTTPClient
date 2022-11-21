@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\Test\Unit\TokenParser;
+namespace Merce\RestClient\Test\Unit\AuthTokenPlug\TokenParser;
 
 use PHPUnit\Framework\TestCase;
-use Merce\RestClient\TokenParser\src\DTO\TokenPayLoad;
-use Merce\RestClient\TokenParser\src\Impl\JWTTokenParser;
-use Merce\RestClient\TokenParser\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayLoad;
+use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\Impl\JWTTokenParser;
 
 /**
  * Test JWTTokenParser class
