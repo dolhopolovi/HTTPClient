@@ -20,7 +20,7 @@ class JWTTokenParser implements ITokenParser
 
         $tokenPayload = explode('.', $token)[1];
 
-        $d_tokenPayload = json_decode(str_replace('_', '/', str_replace('-', '+', $tokenPayload)));
+        $d_tokenPayload = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', $tokenPayload))));
 
         $payLoadUser = $this->getPayLoadUser($d_tokenPayload);
         $tokenExp = $this->getPayLoadExp($d_tokenPayload);
