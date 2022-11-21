@@ -19,6 +19,11 @@ class JWTAuthMiddleware
     ) {
     }
 
+    /**
+     * @param  string  $token
+     * @return static
+     * @throws InvalidArgumentException
+     */
     public static function createBYToken(string $token): self
     {
 
@@ -28,6 +33,10 @@ class JWTAuthMiddleware
         return new self(token: $token);
     }
 
+    /**
+     * @param  JWTTokenManager  $jwtTokenManager
+     * @return static
+     */
     public static function createByJWTTokenManager(JWTTokenManager $jwtTokenManager): self
     {
 
