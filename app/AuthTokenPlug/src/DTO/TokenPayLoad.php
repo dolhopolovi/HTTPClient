@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\TokenParser\src\DTO;
+namespace Merce\RestClient\AuthTokenPlug\src\DTO;
 
 class TokenPayLoad
 {
