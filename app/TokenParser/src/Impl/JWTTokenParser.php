@@ -13,7 +13,7 @@ class JWTTokenParser implements ITokenParser
 
     /**
      * @param  string  $token
-     * @return \Merce\RestClient\TokenParser\src\DTO\TokenPayLoad
+     * @return TokenPayLoad
      */
     public function parseTokenPayload(string $token): TokenPayLoad
     {
