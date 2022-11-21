@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\TokenParser\src;
+namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenParser;
 
-use Merce\RestClient\TokenParser\src\DTO\TokenPayLoad;
-use Merce\RestClient\TokenParser\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayLoad;
+use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayloadUser;
 
 interface ITokenParser
 {
