@@ -31,6 +31,7 @@ class JWTTokenManager
     /**
      * @return string
      * @throws InvalidArgumentException
+     * @throws ClientExceptionInterface
      */
     public function get(): string
     {
