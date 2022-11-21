@@ -15,20 +15,23 @@
 
 #    Struktura biblioteki merce-rest-client
 >### HttpPlug moduł służy jako wtyczka do wysyłania żądań http
->*    Struktura modułu 
->*    Middleware – zestaw klas, które mają być włączone przed i po wysłaniu zadania http
->*    MiddlewareContainer – definiuje kolejność wykonywania klas
->*    Support – metody pomocnicze 
->*    HttpPlugController – kontroler modułu
+>Struktura modułu 
+>>*    Middleware – zestaw klas, które mają być włączone przed i po wysłaniu zadania http
+>>*    MiddlewareContainer – definiuje kolejność wykonywania klas
+>>*    Support – metody pomocnicze 
+>>*    HttpPlugController – kontroler modułu
 >
 >### AuthTokenPlug moduł służy jako wtyczka do obsługi tokenów autoryzacji
->*    TokenManager – kontroler tokenów
->*    TokenParser – parser tokenów
->*    Cechy
->*    Moduł jest przygotowany aby obsługiwać różne typy tokenów
->*    JWTAuthToken
->*    Moduł implementuje cache dla tokenów
->*    Moduł automatycznie odświeża token po wygaśnięciu
+>Struktura modułu
+>>*    TokenManager – kontroler tokenów
+>>*    TokenParser – parser tokenów
+>
+>Cechy
+>>*    Moduł jest przygotowany aby obsługiwać różne typy tokenów
+>
+>JWTAuthToken
+>>*    Moduł implementuje cache dla tokenów
+>>*    Moduł automatycznie odświeża token po wygaśnięciu
 
 # Tests
     ./vendor/bin/phpunit --testsuite Unit
