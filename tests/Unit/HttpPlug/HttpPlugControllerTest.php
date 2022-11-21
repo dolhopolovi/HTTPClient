@@ -62,7 +62,7 @@ class HttpPlugControllerTest extends TestCase
     }
 
     /**
-     * setting up data for the test purpose
+     * Setting up data for the test purpose
      *
      * @return void
      */
