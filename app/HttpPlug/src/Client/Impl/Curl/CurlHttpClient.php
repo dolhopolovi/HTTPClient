@@ -13,6 +13,7 @@ use Merce\RestClient\HttpPlug\src\Client\EHttpMethod;
 use Merce\RestClient\HttpPlug\src\Client\AHttpClient;
 use Merce\RestClient\HttpPlug\src\Message\ResponseBuilder;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\RequestException;
+use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
 use Merce\RestClient\HttpPlug\src\Client\Impl\Curl\Exception\CurlSSLException;
 use Merce\RestClient\HttpPlug\src\Client\Impl\Curl\Exception\CurlCallbackException;
 use Merce\RestClient\HttpPlug\src\Client\Impl\Curl\Exception\CurlMissingLibException;
@@ -65,6 +66,7 @@ class CurlHttpClient extends AHttpClient implements ClientInterface
      * @param  CurlHandle  $curl
      * @param  RequestInterface  $request
      * @return ResponseBuilder
+     * @throws InvalidArgumentException
      */
     protected function prepare(CurlHandle $curl, RequestInterface $request): ResponseBuilder
     {
