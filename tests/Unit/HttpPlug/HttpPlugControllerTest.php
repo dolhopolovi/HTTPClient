@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\Test\Unit;
+namespace Merce\RestClient\Test\Unit\HttpPlug;
 
 use Nyholm\Psr7\Response;
 use PHPUnit\Framework\TestCase;
