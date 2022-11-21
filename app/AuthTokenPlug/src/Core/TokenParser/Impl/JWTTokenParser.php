@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\TokenParser\src\Impl;
+namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\Impl;
 
-use Merce\RestClient\TokenParser\src\ITokenParser;
-use Merce\RestClient\TokenParser\src\DTO\TokenPayLoad;
-use Merce\RestClient\TokenParser\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayLoad;
+use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\ITokenParser;
 
 class JWTTokenParser implements ITokenParser
 {
