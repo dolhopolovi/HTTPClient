@@ -1,6 +1,7 @@
 {
     "name": "merce/rest-client",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Merce\\RestClient\\": "app/"
@@ -17,6 +18,7 @@
             "email": "krebtos@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {
         "nyholm/psr7": "^1.5",
         "psr/http-client": "^1.0",
