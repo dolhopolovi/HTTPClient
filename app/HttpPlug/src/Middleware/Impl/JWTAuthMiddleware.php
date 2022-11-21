@@ -6,7 +6,8 @@ namespace Merce\RestClient\HttpPlug\src\Middleware\Impl;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Merce\RestClient\HttpPlug\src\TokenManager\JWTTokenManager;
+use Psr\Http\Client\ClientExceptionInterface;
+use Merce\RestClient\AuthTokenPlug\src\Core\TokenManager\JWTTokenManager;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
 
 class JWTAuthMiddleware
