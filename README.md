@@ -16,3 +16,6 @@
     Klasa obsługuje jwt tokeny
     Klasa inicjalizuję się za pomocą loginu/hasła użytkownika, zarwano jak i url do logowania
     Klasa automatycznie odświeża token w przypadku wygaśnięcia
+
+# Tests
+    ./vendor/bin/phpunit --testsuite Unit
