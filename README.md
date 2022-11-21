@@ -3,7 +3,7 @@
     Projekt został stworzony na potrzeby rekrutacyjne merce.com
     Projekt spełnia pierwszą część zadania rekrutacyjnego
 
-# Podjete decyzje projektowe
+# Podjęte decyzje projektowe
     Zostały użyte następujące standardy
     PSR-1/PSR-2 coding standarts
     PSR-7       http message interface
