@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\Test\Unit\Client;
+namespace Merce\RestClient\Test\Unit\HttpPlug\Client;
 
 use ReflectionMethod;
 use Nyholm\Psr7\Stream;
