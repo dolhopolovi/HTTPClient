@@ -6,7 +6,6 @@ namespace Merce\RestClient\Test\Unit\HttpPlug\Middleware;
 
 use Nyholm\Psr7\Request;
 use PHPUnit\Framework\TestCase;
-use Merce\RestClient\HttpPlug\src\Middleware\Impl\BasicAuthMiddleware;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
 
 /**
