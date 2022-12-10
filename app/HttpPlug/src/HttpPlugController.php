@@ -18,10 +18,6 @@ use Merce\RestClient\HttpPlug\src\MiddlewareContainer\Impl\StackMiddlewareHandle
 class HttpPlugController
 {
 
-    private RequestInterface $lastRequest;
-
-    private ResponseInterface $lastResponse;
-
     public function __construct(
         private readonly ClientInterface $client,
         private readonly RequestFactoryInterface $requestFactory = new Psr17Factory(),
