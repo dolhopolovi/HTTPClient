@@ -5,15 +5,12 @@ declare(strict_types = 1);
 namespace Merce\RestClient\HttpPlug\src;
 
 use Psr\Http\Client\ClientInterface;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Merce\RestClient\HttpPlug\src\Exception\Impl\LogicException;
-use Merce\RestClient\HttpPlug\src\Exception\Impl\ClientException;
-use Merce\RestClient\HttpPlug\src\MiddlewareContainer\IMiddlewareHandler;
-use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
-use Merce\RestClient\HttpPlug\src\MiddlewareContainer\Impl\StackMiddlewareHandler;
+use Psr\Http\Client\ClientExceptionInterface;
+use Merce\RestClient\HttpPlug\src\Service\Middleware\MiddlewareService;
+use Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection\IMiddlewareCollection;
+use Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection\Impl\ArrayMiddlewareCollection;
 
 class HttpPlugController
 {
