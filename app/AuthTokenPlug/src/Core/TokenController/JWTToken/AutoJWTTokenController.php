@@ -12,7 +12,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Merce\RestClient\AuthTokenPlug\src\DTO\JWTAuthData;
 use Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\Impl\JWTTokenParser;
 
-class JWTTokenManager
+class AutoJWTTokenController implements Authentication
 {
 
     private static ?ArrayCachePool $tokenStorage = null;
@@ -33,26 +33,26 @@ class JWTTokenManager
      * @throws InvalidArgumentException
      * @throws ClientExceptionInterface
      */
-    public function get(): string
+    public function authenticate(RequestInterface $request): RequestInterface
     {
 
         $item = self::$tokenStorage->get((string)$this->jwtAuthData);
 
         if ($item) {
-            return $item;
+            return $request->withHeader('Authorization', sprintf('Bearer %s', $item));
         }
 
         $token = $this->apiLogin();
 
         if (is_null($token)) {
-            return '';
+            return $request;
         }
 
         $tokenPayload = $this->jwtTokenParser->parseTokenPayload($token);
 
         self::$tokenStorage->set((string)$this->jwtAuthData, $token, $tokenPayload->expDate ? $tokenPayload->expDate - time() : null);
 
-        return $token;
+        return $request->withHeader('Authorization', sprintf('Bearer %s', $token));
     }
 
     /**
