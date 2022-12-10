@@ -17,8 +17,7 @@ class HttpPlugController
 
     public function __construct(
         private readonly ClientInterface $client,
-        private readonly RequestFactoryInterface $requestFactory = new Psr17Factory(),
-        private readonly IMiddlewareHandler $handler = new StackMiddlewareHandler()
+        private readonly IMiddlewareCollection $container = new ArrayMiddlewareCollection()
     ) {
     }
 
