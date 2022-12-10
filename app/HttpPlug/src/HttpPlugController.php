@@ -22,8 +22,6 @@ class HttpPlugController
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
      * @return ResponseInterface
      */
     public function get(string $url, array $headers = []): ResponseInterface
