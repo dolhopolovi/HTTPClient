@@ -13,7 +13,7 @@ use Psr\Http\Client\ClientInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Client\ClientExceptionInterface;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\ClientException;
-use Merce\RestClient\HttpPlug\src\Client\Impl\Curl\CurlHttpClient;
+use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\CurlHttpClient;
 
 /**
  * Test CurlHttpClient class
