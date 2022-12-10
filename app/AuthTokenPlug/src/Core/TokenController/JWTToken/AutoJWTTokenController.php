@@ -2,14 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenManager;
+namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken;
 
 use Nyholm\Psr7\Request;
+use Http\Message\Authentication;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Psr\SimpleCache\InvalidArgumentException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Merce\RestClient\AuthTokenPlug\src\DTO\JWTAuthData;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\JWTAuthData;
 use Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\Impl\JWTTokenParser;
 
 class AutoJWTTokenController implements Authentication
@@ -29,7 +31,7 @@ class AutoJWTTokenController implements Authentication
     }
 
     /**
-     * @return string
+     *
      * @throws InvalidArgumentException
      * @throws ClientExceptionInterface
      */
