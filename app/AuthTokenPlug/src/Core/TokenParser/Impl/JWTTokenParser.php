@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\Impl;
 
-use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayLoad;
-use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayLoad;
 use Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\ITokenParser;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayloadUser;
 
 class JWTTokenParser implements ITokenParser
 {
@@ -32,7 +32,7 @@ class JWTTokenParser implements ITokenParser
 
     /**
      * @param  object  $d_token
-     * @return TokenPayloadUser
+     * @return \Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayloadUser
      */
     public function getPayLoadUser(object $d_token): TokenPayloadUser
     {
