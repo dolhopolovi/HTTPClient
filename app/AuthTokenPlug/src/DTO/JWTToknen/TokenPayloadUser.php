@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\AuthTokenPlug\src\DTO;
+namespace Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen;
 
 class TokenPayloadUser
 {
