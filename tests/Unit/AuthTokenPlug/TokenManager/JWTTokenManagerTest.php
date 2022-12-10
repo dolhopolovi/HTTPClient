@@ -48,7 +48,7 @@ class JWTTokenManagerTest extends TestCase
         );
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturn(200);
 
-        $jwtTokenManager = new JWTTokenManager(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+//        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
         $token = $jwtTokenManager->get();
 
@@ -81,7 +81,7 @@ class JWTTokenManagerTest extends TestCase
         $this->mockStream->expects($this->any())->method('getContents')->willReturn($token);
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturnOnConsecutiveCalls(200, 401);
 
-        $jwtTokenManager = new JWTTokenManager(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+//        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
         $token = $jwtTokenManager->get();
 
@@ -112,7 +112,7 @@ class JWTTokenManagerTest extends TestCase
 
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturn(401);
 
-        $jwtTokenManager = new JWTTokenManager(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+//        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
         $token = $jwtTokenManager->get();
 
