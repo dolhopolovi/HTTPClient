@@ -44,8 +44,6 @@ class HttpPlugController
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
      * @return ResponseInterface
      */
     public function head(RequestInterface $request): ResponseInterface
@@ -55,9 +53,6 @@ class HttpPlugController
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
      * @return ResponseInterface
      */
     public function patch(RequestInterface $request): ResponseInterface
@@ -67,9 +62,6 @@ class HttpPlugController
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
      * @return ResponseInterface
      */
     public function put(RequestInterface $request): ResponseInterface
@@ -79,10 +71,8 @@ class HttpPlugController
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function delete(RequestInterface $request): ResponseInterface
     {
