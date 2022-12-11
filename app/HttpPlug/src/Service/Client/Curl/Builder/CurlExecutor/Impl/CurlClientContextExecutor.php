@@ -20,8 +20,9 @@ class CurlClientServiceExecutor
     private $curl;
 
     public function __construct(
-        private CurlRequestBuilder $curlRequestBuilder
+        private readonly ICurlRequestPack $curlGenericRequestBuilder
     ) {
+        parent::__construct($curlGenericRequestBuilder);
         $this->curl = curl_init();
     }
 
@@ -48,7 +49,7 @@ class CurlClientServiceExecutor
         ->getResponse();
     }
 
-    public function __destruct()
+    protected function __destruct()
     {
         if (is_resource($this->curl)) {
             curl_reset($this->curl);
