@@ -15,6 +15,8 @@ use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlRequestDTOHtt
 
 class CurlBuilder implements ICurlBuilder {
 
+    use FileSystem;
+
     public function __construct(private readonly IGenericCurlRequestDTO $genericCurlRequestDTO = new GenericCurlRequestDTO()) {
 
 
