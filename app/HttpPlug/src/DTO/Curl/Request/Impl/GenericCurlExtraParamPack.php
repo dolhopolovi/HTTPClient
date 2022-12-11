@@ -2,7 +2,9 @@
 
 namespace Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl;
 
-class GenericCurlExtraParamPack
+use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlExtraParamPack;
+
+class GenericCurlExtraParamPack implements IGenericCurlExtraParamPack
 {
 
     private array $option = [];
