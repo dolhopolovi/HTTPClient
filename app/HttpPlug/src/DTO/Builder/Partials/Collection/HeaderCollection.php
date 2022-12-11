@@ -45,7 +45,6 @@ class HeaderCollection implements \Iterator
 
     public function isEmpty(): bool {
 
-        var_dump(empty($this->collection));
         return empty($this->collection);
     }
 }
