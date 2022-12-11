@@ -15,10 +15,6 @@ class GenericCurlRequestDTO implements IGenericCurlRequestDTO
 
     public function __construct() {
         $defOptions = [
-            CURLOPT_HEADER => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FAILONERROR => false,
-            CURLOPT_VERBOSE => true,
             CURLOPT_STDERR => fopen($this->getLibRoot() . '/log/curl-log.log', 'w+'),
         ];
 
