@@ -1,8 +1,10 @@
 <?php
 
-namespace Merce\RestClient\HttpPlug\src\Service\Builder\Curl\Request;
+namespace Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl;
 
-class CurlRequestBuilderHttpMethod
+use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTOHttpMethod;
+
+class GenericCurlRequestDTOHttpMethod implements IGenericCurlRequestDTOHttpMethod
 {
     private array $option = [];
 
