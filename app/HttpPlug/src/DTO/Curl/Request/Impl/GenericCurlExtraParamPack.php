@@ -51,5 +51,4 @@ class GenericCurlExtraParamPack implements IGenericCurlExtraParamPack
     public function get(): array {
         return $this->option;
     }
-
 }
