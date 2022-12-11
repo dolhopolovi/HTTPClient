@@ -14,7 +14,7 @@ use Merce\RestClient\HttpPlug\src\Core\Middleware\IMiddleware;
 class AuthMiddleware implements IMiddleware
 {
 
-    private function __construct(
+    public function __construct(
         private readonly Authentication $authentication
     ) {
     }
