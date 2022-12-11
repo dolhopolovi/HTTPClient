@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\HttpPlugController;
-use Merce\RestClient\HttpPlug\src\Client\Impl\Curl\CurlHttpClient;
+use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\CurlHttpClient;
 
 /**
  * Test HttpPlugController class

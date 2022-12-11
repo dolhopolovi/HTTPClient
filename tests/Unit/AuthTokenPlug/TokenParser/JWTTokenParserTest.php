@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Merce\RestClient\Test\Unit\AuthTokenPlug\TokenParser;
 
 use PHPUnit\Framework\TestCase;
-use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayLoad;
-use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayLoad;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayloadUser;
 use Merce\RestClient\AuthTokenPlug\src\Core\TokenParser\Impl\JWTTokenParser;
 
 /**
@@ -27,7 +27,7 @@ class JWTTokenParserTest extends TestCase
 
         $jwtTokenParser = new JWTTokenParser();
 
-        /* @var TokenPayLoad $tokenPayload */
+        /* @var \Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayLoad $tokenPayload */
         $tokenPayload = $jwtTokenParser->parseTokenPayload($token);
 
         $expected_tokenPayload = new TokenPayLoad(new TokenPayloadUser('John', 'Doe'), null);

@@ -5,158 +5,97 @@ declare(strict_types = 1);
 namespace Merce\RestClient\HttpPlug\src;
 
 use Psr\Http\Client\ClientInterface;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Merce\RestClient\HttpPlug\src\Exception\Impl\LogicException;
-use Merce\RestClient\HttpPlug\src\Exception\Impl\ClientException;
-use Merce\RestClient\HttpPlug\src\MiddlewareContainer\IMiddlewareHandler;
-use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
-use Merce\RestClient\HttpPlug\src\MiddlewareContainer\Impl\StackMiddlewareHandler;
+use Psr\Http\Client\ClientExceptionInterface;
+use Merce\RestClient\HttpPlug\src\Service\Middleware\MiddlewareService;
+use Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection\IMiddlewareCollection;
+use Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection\Impl\ArrayMiddlewareCollection;
 
 class HttpPlugController
 {
 
-    private RequestInterface $lastRequest;
-
-    private ResponseInterface $lastResponse;
-
     public function __construct(
         private readonly ClientInterface $client,
-        private readonly RequestFactoryInterface $requestFactory = new Psr17Factory(),
-        private readonly IMiddlewareHandler $handler = new StackMiddlewareHandler()
+        private readonly IMiddlewareCollection $handler = new ArrayMiddlewareCollection()
     ) {
-    }
-
-    /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @return ResponseInterface
-     */
-    public function get(string $url, array $headers = []): ResponseInterface
-    {
-
-        return $this->request('GET', $url, $headers);
-    }
-
-    /**
-     * @param  string  $method
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
-     * @return ResponseInterface
-     */
-    private function request(string $method, string $url, array $headers = [], string $body = ''): ResponseInterface
-    {
-
-        $request = $this->createRequest($method, $url, $headers, $body);
-
-        return $this->sendRequest($request);
-    }
-
-    /**
-     * @param  string  $method
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
-     * @return RequestInterface
-     */
-    private function createRequest(string $method, string $url, array $headers, string $body): RequestInterface
-    {
-
-        $request = $this->requestFactory->createRequest($method, $url);
-        $request->getBody()->write($body);
-        foreach ($headers as $name => $value) {
-            $request = $request->withAddedHeader($name, $value);
-        }
-
-        return $request;
     }
 
     /**
      * @param  RequestInterface  $request
      * @return ResponseInterface
-     * @throws ClientException
-     * @throws LogicException
-     * @throws InvalidArgumentException
+     * @throws ClientExceptionInterface
      */
-    public function sendRequest(RequestInterface $request): ResponseInterface
+    public function get(RequestInterface $request): ResponseInterface
     {
 
-        $requestChainLast = function (RequestInterface $request, callable $responseChain) {
-
-            $response = $this->client->sendRequest($request);
-            $responseChain($request, $response);
-        };
-        $responseChainLast = function (RequestInterface $request, ResponseInterface $response) {
-
-            $this->lastRequest = $request;
-            $this->lastResponse = $response;
-        };
-
-        $callbackChain = $this->handler->resolve($requestChainLast, $responseChainLast);
-        $callbackChain($request);
-
-        return $this->lastResponse;
+        return $this->request($request);
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
-    public function post(string $url, array $headers = [], string $body = ''): ResponseInterface
+    private function request(RequestInterface $request): ResponseInterface
     {
 
-        return $this->request('POST', $url, $headers, $body);
+        $service = new MiddlewareService($this->handler, $this->client);
+        return $service->sendRequestWithMiddlewares($request);
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
-    public function head(string $url, array $headers = []): ResponseInterface
+    public function post(RequestInterface $request): ResponseInterface
     {
 
-        return $this->request('HEAD', $url, $headers);
+        return $this->request($request);
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
-    public function patch(string $url, array $headers = [], string $body = ''): ResponseInterface
+    public function head(RequestInterface $request): ResponseInterface
     {
 
-        return $this->request('PATCH', $url, $headers, $body);
+        return $this->request($request);
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
-    public function put(string $url, array $headers = [], string $body = ''): ResponseInterface
+    public function patch(RequestInterface $request): ResponseInterface
     {
 
-        return $this->request('PUT', $url, $headers, $body);
+        return $this->request($request);
     }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
-    public function delete(string $url, array $headers = [], string $body = ''): ResponseInterface
+    public function put(RequestInterface $request): ResponseInterface
     {
 
-        return $this->request('DELETE', $url, $headers, $body);
+        return $this->request($request);
+    }
+
+    /**
+     * @param  RequestInterface  $request
+     * @return ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function delete(RequestInterface $request): ResponseInterface
+    {
+
+        return $this->request($request);
     }
 }

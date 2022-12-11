@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenParser;
 
-use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayLoad;
-use Merce\RestClient\AuthTokenPlug\src\DTO\TokenPayloadUser;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayLoad;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayloadUser;
 
 interface ITokenParser
 {
