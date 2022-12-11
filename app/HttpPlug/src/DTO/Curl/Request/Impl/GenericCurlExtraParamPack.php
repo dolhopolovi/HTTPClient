@@ -42,7 +42,7 @@ class GenericCurlExtraParamPack implements IGenericCurlExtraParamPack
         $paramPack = new self();
 
         foreach ($jsonObject as $key => $value) {
-            $paramPack->$key = (bool)$value;
+            $paramPack->$key((bool)$value);
         }
 
         return $paramPack;
