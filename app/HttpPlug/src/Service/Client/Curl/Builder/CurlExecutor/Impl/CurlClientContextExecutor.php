@@ -63,6 +63,8 @@ class CurlClientServiceExecutor
 
         $errno = curl_errno($this->curl);
 
+        $psrReuqest = $this->curlGenericRequestBuilder->getPSRRequest();
+
         switch ($errno) {
             case CURLE_OK:
                 break;
@@ -71,11 +73,11 @@ class CurlClientServiceExecutor
             case CURLE_COULDNT_CONNECT:
             case CURLE_OPERATION_TIMEOUTED:
             case CURLE_SSL_CONNECT_ERROR:
-                throw new CurlSSLException($this->curlRequestBuilder->restorePSRRequest(), curl_error($this->curl), $errno);
+                throw new CurlSSLException($psrReuqest, curl_error($this->curl), $errno);
             case CURLE_ABORTED_BY_CALLBACK:
-                throw new CurlCallbackException($this->curlRequestBuilder->restorePSRRequest(), curl_error($this->curl), $errno);
+                throw new CurlCallbackException($psrReuqest, curl_error($this->curl), $errno);
             default:
-                throw new RequestException($this->curlRequestBuilder->restorePSRRequest(), curl_error($this->curl), $errno);
+                throw new RequestException($psrReuqest, curl_error($this->curl), $errno);
         }
     }
 }
