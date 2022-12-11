@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlBuilder\Impl;
 
 use Nyholm\Psr7\Stream;
@@ -14,23 +16,25 @@ use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlRequestDTO;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlExtraParamPack;
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlBuilder\ICurlBuilder;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlRequestDTOHttpMethod;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\Impl\CurlClientContextExecutor;
 
-class CurlBuilder implements ICurlBuilder {
+class CurlBuilder implements ICurlBuilder
+{
 
     use FileSystem;
 
-    public function __construct(private readonly IGenericCurlRequestDTO $genericCurlRequestDTO = new GenericCurlRequestDTO()) {
-
+    public function __construct(private readonly IGenericCurlRequestDTO $genericCurlRequestDTO = new GenericCurlRequestDTO())
+    {
 
         $this->setGenericCurlExtraParamPack();
     }
 
-    public function setGenericCurlExtraParamPack(): ICurlBuilder  {
+    public function setGenericCurlExtraParamPack(): ICurlBuilder
+    {
 
         $filePath = $this->getLibRoot() . "/config/http-plug.conf.json";
 
-        if(file_exists($filePath)) {
-
+        if (file_exists($filePath)) {
             $config = fopen($filePath, "r");
 
             $data = '';
@@ -63,7 +67,6 @@ class CurlBuilder implements ICurlBuilder {
         return $this;
     }
 
-
     public function setCURLOPTHTTPHEADER(array $CURLOPT_HTTPHEADER): ICurlBuilder
     {
 
@@ -75,13 +78,10 @@ class CurlBuilder implements ICurlBuilder {
     {
 
         if (0 !== $version = $this->getProtocolVersion($CURLOPT_HTTP_VERSION)) {
-
             $this->genericCurlRequestDTO->setCURLOPTHTTPVERSION($version);
         }
         return $this;
     }
-
-
 
     public function setCURLOPTUSERPWD(string $CURLOPT_USERPWD): ICurlBuilder
     {
@@ -90,18 +90,8 @@ class CurlBuilder implements ICurlBuilder {
         return $this;
     }
 
-    private function getProtocolVersion(string $CURLOPT_HTTP_VERSION): int
+    public function setHttpMethod(string $httpMethod, ?Stream $body = null): ICurlBuilder
     {
-
-        return match ($CURLOPT_HTTP_VERSION) {
-            '1.0'   => CURL_HTTP_VERSION_1_0,
-            '1.1'   => CURL_HTTP_VERSION_1_1,
-            '2.0'   => CURL_HTTP_VERSION_2_0,
-            default => 0,
-        };
-    }
-
-    public function setHttpMethod(string $httpMethod, ?Stream $body = null): ICurlBuilder {
 
         $genericCurlRequestDTOHttpMethod = new GenericCurlRequestDTOHttpMethod();
 
@@ -119,10 +109,10 @@ class CurlBuilder implements ICurlBuilder {
             case EHttpMethod::DELETE:
             case EHttpMethod::PATCH:
             case EHttpMethod::OPTIONS:
-                if($body !== null) {
+                if ($body !== null) {
                     $bodySize = $body->getSize();
                     if (0 !== $bodySize) {
-                        $genericCurlRequestDTOHttpMethod->setCURLOPTPOSTFIELDS($body);
+                        $genericCurlRequestDTOHttpMethod->setCURLOPTPOSTFIELDS((string)$body);
                     }
                 }
         }
@@ -130,25 +120,26 @@ class CurlBuilder implements ICurlBuilder {
         return $this;
     }
 
-    public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): ICurlBuilder {
+    public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): ICurlBuilder
+    {
 
         $this->genericCurlRequestDTO->setCURLOPTSSLVERIFYPEER($CURLOPT_SSL_VERIFYPEER);
         return $this;
     }
 
-    public function buildPSRRequest(): RequestInterface {
+    public function buildPSRRequest(): RequestInterface
+    {
+
         $option = $this->genericCurlRequestDTO->get();
 
-        return (new RequestBuilder())
-            ->setUri($option[CURLOPT_URL])
-            ->setMethod(EHttpMethod::from($option[CURLOPT_CUSTOMREQUEST]))
-            ->getRequest();
+        return (new RequestBuilder())->setUri($option[CURLOPT_URL])->setMethod(EHttpMethod::from($option[CURLOPT_CUSTOMREQUEST]))->getRequest();
     }
 
-    public function buildRequest(): ICurlRequestPack {
+    public function buildRequest(): ICurlRequestPack
+    {
 
         $args = [
-            'option' => $this->genericCurlRequestDTO->get(),
+            'option'  => $this->genericCurlRequestDTO->get(),
             'request' => $this->buildPSRRequest(),
         ];
 
@@ -157,9 +148,23 @@ class CurlBuilder implements ICurlBuilder {
         return new CurlRequestPack(...$args);
     }
 
-    public function buildExecutionContext(): \Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\Impl\CurlClientContextExecutor  {
+    public function buildExecutionContext(): CurlClientContextExecutor
+    {
+
         $data = $this->buildRequest();
 
-        return new \Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\Impl\CurlClientContextExecutor($data);
+        return new CurlClientContextExecutor($data);
     }
-};
+
+    private function getProtocolVersion(string $CURLOPT_HTTP_VERSION): int
+    {
+
+        return match ($CURLOPT_HTTP_VERSION) {
+            '1.0'   => CURL_HTTP_VERSION_1_0,
+            '1.1'   => CURL_HTTP_VERSION_1_1,
+            '2.0'   => CURL_HTTP_VERSION_2_0,
+            default => 0,
+        };
+    }
+}
+
