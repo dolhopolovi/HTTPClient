@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl;
 
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlExtraParamPack;
@@ -37,7 +39,8 @@ class GenericCurlExtraParamPack implements IGenericCurlExtraParamPack
         return $this;
     }
 
-    public static function recreateFromJson(object $jsonObject): self {
+    public static function recreateFromJson(object $jsonObject): self
+    {
 
         $paramPack = new self();
 
@@ -48,7 +51,9 @@ class GenericCurlExtraParamPack implements IGenericCurlExtraParamPack
         return $paramPack;
     }
 
-    public function get(): array {
+    public function get(): array
+    {
+
         return $this->option;
     }
 }
