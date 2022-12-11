@@ -37,6 +37,17 @@ class GenericCurlExtraParamPack implements IGenericCurlExtraParamPack
         return $this;
     }
 
+    public static function recreateFromJson(object $jsonObject): self {
+
+        $paramPack = new self();
+
+        foreach ($jsonObject as $key => $value) {
+            $paramPack->$key = (bool)$value;
+        }
+
+        return $paramPack;
+    }
+
     public function get(): array {
         return $this->option;
     }
