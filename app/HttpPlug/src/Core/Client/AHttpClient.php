@@ -10,7 +10,7 @@ abstract class AHttpClient
 {
 
     public function __construct(
-        protected IFactoryCurlBuilder $curlHandler,
+        protected IFactoryCurlBuilder $factoryCurlBuilder,
     ) {
     }
 }
