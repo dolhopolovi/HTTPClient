@@ -27,7 +27,7 @@ class CurlBuilder implements ICurlBuilder {
 
     public function setGenericCurlExtraParamPack(): ICurlBuilder  {
 
-        $filePath = $this->getLibRoot() . "/config/http-plug.conf";
+        $filePath = $this->getLibRoot() . "/config/http-plug.conf.json";
 
         if(file_exists($filePath)) {
 
