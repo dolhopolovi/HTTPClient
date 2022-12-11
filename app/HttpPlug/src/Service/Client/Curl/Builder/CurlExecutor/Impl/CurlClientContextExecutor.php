@@ -27,10 +27,16 @@ class CurlClientServiceExecutor
 
     public function execute(): ResponseInterface {
 
-        curl_setopt_array($this->curl, $this->curlRequestBuilder->get());
+        //init
+        curl_setopt_array($this->curl, $this->curlGenericRequestBuilder->getData());
 
+        //exec
         $response = curl_exec($this->curl);
 
+        //error
+        $this->parseError();
+
+        //response
         $headerSize = curl_getinfo($this->curl, CURLINFO_HEADER_SIZE);
 
         $header = substr($response, 0, $headerSize);
