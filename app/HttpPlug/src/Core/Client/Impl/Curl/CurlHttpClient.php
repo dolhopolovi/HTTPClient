@@ -16,25 +16,22 @@ class CurlHttpClient extends AHttpClient implements ClientInterface
 {
 
     public function __construct(
-        IFactoryCurlBuilder $curlHandler = new FactoryCurlBuilderFactory(),
+        IFactoryCurlBuilder $factoryCurlBuilder = new FactoryCurlBuilderFactory(),
 
     ) {
-        parent::__construct($curlHandler);
+
+        parent::__construct($factoryCurlBuilder);
     }
 
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
 
-        return $this->curlHandler
-            ->init()
-            //->setCURLOPTHEADER(true)
-            //            ->setCURLOPTRETURNTRANSFER(true)
-            //            ->setCURLOPTFAILONERROR(false)
-            ->setCURLOPTCUSTOMREQUEST($request->getMethod())
-            ->setCURLOPTURL($request->getUri()->__toString())
-            ->setCURLOPTHTTPHEADER(Arr::flatMap($request->getHeaders()))
-            ->setCURLOPTSSLVERIFYPEER(false)
-            ->buildExecutionContext()
-            ->execute();
+        return $this->factoryCurlBuilder->init()
+                                        ->setCURLOPTCUSTOMREQUEST($request->getMethod())
+                                        ->setCURLOPTURL($request->getUri()->__toString())
+                                        ->setCURLOPTHTTPHEADER(Arr::flatMap($request->getHeaders()))
+                                        ->setCURLOPTSSLVERIFYPEER(false)
+                                        ->buildExecutionContext()
+                                        ->execute();
     }
 }
