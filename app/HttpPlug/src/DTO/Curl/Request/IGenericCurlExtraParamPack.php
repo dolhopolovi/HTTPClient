@@ -8,5 +8,6 @@ interface IGenericCurlExtraParamPack
     public function setCURLOPTFAILONERROR(bool $CURLOPT_FAILONERROR): self;
     public function setCURLOPTRETURNTRANSFER(bool $CURLOPT_RETURNTRANSFER): self;
     public function setCURLOPTHEADER(bool $CURLOPT_HEADER): self;
+    public static function recreateFromJson(object $jsonObject): self;
     public function get(): array;
 }
