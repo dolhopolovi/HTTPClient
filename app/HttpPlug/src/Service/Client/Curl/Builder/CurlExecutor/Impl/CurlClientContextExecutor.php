@@ -50,7 +50,7 @@ class CurlClientContextExecutor extends ACurlClientContextExecutor
         ->getResponse();
     }
 
-    protected function __destruct()
+    public function __destruct()
     {
         if (is_resource($this->curl)) {
             curl_reset($this->curl);
