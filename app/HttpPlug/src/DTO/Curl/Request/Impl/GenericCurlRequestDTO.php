@@ -2,12 +2,15 @@
 
 namespace Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl;
 
+use Merce\RestClient\HttpPlug\src\Support\FileSystem;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTO;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlExtraParamPack;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTOHttpMethod;
 
 class GenericCurlRequestDTO implements IGenericCurlRequestDTO
 {
+    use FileSystem;
+
     private array $option = [];
 
     public function __construct() {
