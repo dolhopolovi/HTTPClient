@@ -4,7 +4,6 @@ namespace Merce\RestClient\Test\Unit\HttpPlug\Service\Builder\Response;
 
 use ReflectionClass;
 use PHPUnit\Framework\TestCase;
-use Merce\RestClient\HttpPlug\src\DTO\Builder\Response\ResponseDTO;
 use Merce\RestClient\HttpPlug\src\Service\Builder\Response\Impl\ResponseService;
 
 class ResponseServiceTest extends TestCase

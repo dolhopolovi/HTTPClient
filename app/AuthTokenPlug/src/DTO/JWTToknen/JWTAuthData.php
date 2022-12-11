@@ -22,6 +22,6 @@ class JWTAuthData
     public function __toString(): string
     {
 
-        return base64_encode("{$this->request->getUri()->__toString()}{$this->username}{$this->password}");
+        return base64_encode("{$this->request->getUri()->__toString()}$this->username$this->password");
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenController\BasicAuthToken;
 
 use Http\Message\Authentication;
@@ -8,11 +10,14 @@ use Merce\RestClient\AuthTokenPlug\src\DTO\BasicAuthToken\BasicAuthTokenCredenti
 
 class ManualBasicAuthTokenController implements Authentication
 {
-    public function __construct(private readonly BasicAuthTokenCredentialData $authTokenCredentialData) {
+
+    public function __construct(private readonly BasicAuthTokenCredentialData $authTokenCredentialData)
+    {
     }
-    
+
     public function authenticate(RequestInterface $request): RequestInterface
     {
+
         return $request->withHeader('Authorization', sprintf('Basic %s', $this->authTokenCredentialData));
     }
 }

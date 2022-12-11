@@ -22,7 +22,9 @@ class HttpPlugController
     }
 
     /**
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function get(RequestInterface $request): ResponseInterface
     {
@@ -30,12 +32,22 @@ class HttpPlugController
         return $this->request($request);
     }
 
+    /**
+     * @param  RequestInterface  $request
+     * @return ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    private function request(RequestInterface $request): ResponseInterface
+    {
+
+        $service = new MiddlewareService($this->handler, $this->client);
+        return $service->sendRequestWithMiddlewares($request);
+    }
 
     /**
-     * @param  string  $url
-     * @param  array  $headers
-     * @param  string  $body
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function post(RequestInterface $request): ResponseInterface
     {
@@ -44,7 +56,9 @@ class HttpPlugController
     }
 
     /**
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function head(RequestInterface $request): ResponseInterface
     {
@@ -53,7 +67,9 @@ class HttpPlugController
     }
 
     /**
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function patch(RequestInterface $request): ResponseInterface
     {
@@ -62,7 +78,9 @@ class HttpPlugController
     }
 
     /**
+     * @param  RequestInterface  $request
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function put(RequestInterface $request): ResponseInterface
     {
@@ -71,6 +89,7 @@ class HttpPlugController
     }
 
     /**
+     * @param  RequestInterface  $request
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -78,15 +97,5 @@ class HttpPlugController
     {
 
         return $this->request($request);
-    }
-
-    /**
-     * @return ResponseInterface
-     * @throws ClientExceptionInterface
-     */
-    private function request(RequestInterface $request): ResponseInterface
-    {
-        $service = new MiddlewareService($this->handler, $this->client);
-        return $service->sendRequestWithMiddlewares($request);
     }
 }

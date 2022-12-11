@@ -12,7 +12,6 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\JWTAuthData;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\CurlHttpClient;
 
 /**

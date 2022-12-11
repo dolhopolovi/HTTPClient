@@ -9,9 +9,10 @@ use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayloadUser;
 
 interface ITokenParser
 {
+
     /**
      * @param  string  $token
-     * @return \Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayLoad
+     * @return TokenPayLoad
      */
     public function parseTokenPayload(string $token): TokenPayLoad;
 

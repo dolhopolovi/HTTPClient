@@ -32,7 +32,7 @@ class JWTTokenParser implements ITokenParser
 
     /**
      * @param  object  $d_token
-     * @return \Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayloadUser
+     * @return TokenPayloadUser
      */
     public function getPayLoadUser(object $d_token): TokenPayloadUser
     {

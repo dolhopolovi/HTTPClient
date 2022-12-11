@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken;
 
 use Http\Message\Authentication;
@@ -9,7 +11,9 @@ use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
 class ManualJWTAuthTokenController implements Authentication
 {
 
-    public function __construct(private readonly string $token) {
+    public function __construct(private readonly string $token)
+    {
+
         if (empty($token)) {
             throw new InvalidArgumentException('Error: accessToken token is empty');
         }
@@ -17,6 +21,7 @@ class ManualJWTAuthTokenController implements Authentication
 
     public function authenticate(RequestInterface $request): RequestInterface
     {
+
         return $request->withHeader('Authorization', sprintf('Bearer %s', $this->token));
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\Test\Unit\HttpPlug\Middleware;
 
-use Nyholm\Psr7\Request;
 use PHPUnit\Framework\TestCase;
 //use Merce\RestClient\HttpPlug\src\Core\Middleware\Impl\AuthMiddleware;
 //use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;

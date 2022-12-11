@@ -13,21 +13,24 @@ use Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection\IMiddlewareCollectio
 class MiddlewareService
 {
 
-    public function __construct(private readonly IMiddlewareCollection $container, private ClientInterface $client) {
-
+    public function __construct(private readonly IMiddlewareCollection $container, private readonly ClientInterface $client)
+    {
     }
 
     /**
      * @throws ClientExceptionInterface
      */
-    public function sendRequestWithMiddlewares(RequestInterface $request): ResponseInterface {
+    public function sendRequestWithMiddlewares(RequestInterface $request): ResponseInterface
+    {
+
         $preparedRequest = $this->passRequestThroughMiddlewares($request);
         $response = $this->client->sendRequest($preparedRequest);
         return $this->passResponseThroughMiddlewares($response, $request);
     }
 
-    private function passRequestThroughMiddlewares(RequestInterface $request) : RequestInterface
+    private function passRequestThroughMiddlewares(RequestInterface $request): RequestInterface
     {
+
         $middlewaresIterator = $this->container->getForwardIterator();
 
         foreach ($middlewaresIterator as $middleware) {
@@ -36,8 +39,9 @@ class MiddlewareService
         return $request;
     }
 
-    private function passResponseThroughMiddlewares(ResponseInterface $response, RequestInterface $request) : ResponseInterface
+    private function passResponseThroughMiddlewares(ResponseInterface $response, RequestInterface $request): ResponseInterface
     {
+
         $middlewaresIterator = $this->container->getReverseIterator();
 
         foreach ($middlewaresIterator as $middleware) {
@@ -45,7 +49,5 @@ class MiddlewareService
         }
         return $response;
     }
-
-
 
 }
