@@ -27,8 +27,7 @@ class AuthMiddleware implements IMiddleware
     public function handleForRequest(RequestInterface $request): RequestInterface
     {
 
-        return $request->withAddedHeader('Authorization', $this->authentication->authenticate($request));
-
+        return $this->authentication->authenticate($request);
     }
 
     /**
