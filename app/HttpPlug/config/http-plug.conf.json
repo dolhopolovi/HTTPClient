@@ -1,0 +1,6 @@
+{
+  "setCURLOPTVERBOSE": true,
+  "setCURLOPTFAILONERROR": false,
+  "setCURLOPTRETURNTRANSFER": true,
+  "setCURLOPTHEADER": true
+}
