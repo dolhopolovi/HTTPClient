@@ -25,7 +25,16 @@ class CurlHttpClient extends AHttpClient implements ClientInterface
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
 
-        $curlInitializer = $this->clientService->initHttpHandlerRequest($request);
-        return $curlInitializer->execute();
+        return $this->curlHandler
+            ->init()
+            //->setCURLOPTHEADER(true)
+            //            ->setCURLOPTRETURNTRANSFER(true)
+            //            ->setCURLOPTFAILONERROR(false)
+            ->setCURLOPTCUSTOMREQUEST($request->getMethod())
+            ->setCURLOPTURL($request->getUri()->__toString())
+            ->setCURLOPTHTTPHEADER(Arr::flatMap($request->getHeaders()))
+            ->setCURLOPTSSLVERIFYPEER(false)
+            ->buildExecutionContext()
+            ->execute();
     }
 }
