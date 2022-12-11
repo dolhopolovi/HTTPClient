@@ -1,16 +1,17 @@
 <?php
 
-namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Core\CurlClientService;
+namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\Impl;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\RequestException;
+use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\ICurlRequestPack;
 use Merce\RestClient\HttpPlug\src\Core\Builder\Response\Impl\ResponseBuilder;
-use Merce\RestClient\HttpPlug\src\Service\Builder\Curl\Request\CurlRequestBuilder;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\Exception\CurlSSLException;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\Exception\CurlCallbackException;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\ACurlClientContextExecutor;
 
-class CurlClientServiceExecutor
+class CurlClientContextExecutor extends ACurlClientContextExecutor
 {
     /**
      * don't delete my bro this very impoertant
