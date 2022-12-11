@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl;
 
 use Merce\RestClient\HttpPlug\src\Support\FileSystem;
@@ -9,11 +11,14 @@ use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTOHttpMet
 
 class GenericCurlRequestDTO implements IGenericCurlRequestDTO
 {
+
     use FileSystem;
 
     private array $option = [];
 
-    public function __construct() {
+    public function __construct()
+    {
+
         $defOptions = [
             CURLOPT_STDERR => fopen($this->getLibRoot() . '/log/curl-log.log', 'w+'),
         ];
@@ -35,7 +40,6 @@ class GenericCurlRequestDTO implements IGenericCurlRequestDTO
         return $this;
     }
 
-
     public function setCURLOPTHTTPHEADER(array $CURLOPT_HTTPHEADER): IGenericCurlRequestDTO
     {
 
@@ -43,7 +47,7 @@ class GenericCurlRequestDTO implements IGenericCurlRequestDTO
         return $this;
     }
 
-    public function setCURLOPTHTTPVERSION(string $CURLOPT_HTTP_VERSION): IGenericCurlRequestDTO
+    public function setCURLOPTHTTPVERSION(int $CURLOPT_HTTP_VERSION): IGenericCurlRequestDTO
     {
 
         $this->option[CURLOPT_HTTP_VERSION] = $CURLOPT_HTTP_VERSION;
@@ -57,25 +61,30 @@ class GenericCurlRequestDTO implements IGenericCurlRequestDTO
         return $this;
     }
 
-    public function setGenericCurlRequestDTOHttpMethod(IGenericCurlRequestDTOHttpMethod $genericCurlRequestDTOHttpMethod): IGenericCurlRequestDTO {
+    public function setGenericCurlRequestDTOHttpMethod(IGenericCurlRequestDTOHttpMethod $genericCurlRequestDTOHttpMethod): IGenericCurlRequestDTO
+    {
 
         $this->option += $genericCurlRequestDTOHttpMethod->get();
         return $this;
     }
 
-    public function setGenericCurlExtraParamPack(IGenericCurlExtraParamPack $genericCurlExtraParamPack): IGenericCurlRequestDTO {
-
-        $this->option = array_replace($this->option, $genericCurlExtraParamPack->get());
-        return $this;
-    }
-
-    public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): IGenericCurlRequestDTO {
+    public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): IGenericCurlRequestDTO
+    {
 
         $this->option[CURLOPT_SSL_VERIFYPEER] = $CURLOPT_SSL_VERIFYPEER;
         return $this;
     }
 
-    public function get(): array {
+    public function get(): array
+    {
+
         return $this->option;
+    }
+
+    public function setGenericCurlExtraParamPack(IGenericCurlExtraParamPack $genericCurlExtraParamPack): IGenericCurlRequestDTO
+    {
+
+        $this->option = array_replace($this->option, $genericCurlExtraParamPack->get());
+        return $this;
     }
 }
