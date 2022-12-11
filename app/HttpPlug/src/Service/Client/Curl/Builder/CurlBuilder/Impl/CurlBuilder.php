@@ -23,7 +23,25 @@ class CurlBuilder implements ICurlBuilder {
 
     public function setGenericCurlExtraParamPack(): ICurlBuilder  {
 
-//        $this->genericCurlRequestDTO->setGenericCurlExtraParamPack();
+        $filePath = $this->getLibRoot() . "/config/http-plug.conf";
+
+        if(file_exists($filePath)) {
+
+            $config = fopen($filePath, "r");
+
+            $data = '';
+            try {
+                $data = fread($config, filesize($filePath));
+            }
+            finally {
+                fclose($config);
+            }
+
+            $data = json_decode($data);
+            $requestPack = GenericCurlExtraParamPack::recreateFromJson($data);
+
+            $this->genericCurlRequestDTO->setGenericCurlExtraParamPack($requestPack);
+        }
         return $this;
     }
 
