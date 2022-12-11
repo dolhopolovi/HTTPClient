@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\Impl;
 
-use Psr\Http\Message\RequestInterface;
+use CurlHandle;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\RequestException;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\ICurlRequestPack;
@@ -13,21 +15,24 @@ use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\ACurl
 
 class CurlClientContextExecutor extends ACurlClientContextExecutor
 {
+
     /**
      * don't delete my bro this very impoertant
      *
-     * @var resource|\CurlHandle|null
+     * @var resource|CurlHandle|null
      */
     private $curl;
 
     public function __construct(
-        private readonly ICurlRequestPack $curlGenericRequestBuilder
+        ICurlRequestPack $curlGenericRequestBuilder
     ) {
+
         parent::__construct($curlGenericRequestBuilder);
         $this->curl = curl_init();
     }
 
-    public function execute(): ResponseInterface {
+    public function execute(): ResponseInterface
+    {
 
         //init
         curl_setopt_array($this->curl, $this->curlGenericRequestBuilder->getData());
@@ -44,27 +49,19 @@ class CurlClientContextExecutor extends ACurlClientContextExecutor
         $header = substr($response, 0, $headerSize);
         $body = substr($response, $headerSize);
 
-        return (new ResponseBuilder())
-        ->parseHeaderLine($header)
-        ->setBody($body)
-        ->getResponse();
+        return (new ResponseBuilder())->parseHeaderLine($header)->setBody($body)->getResponse();
     }
 
     public function __destruct()
     {
+
         if (is_resource($this->curl)) {
             curl_reset($this->curl);
         }
     }
 
     /**
-     * @param  RequestInterface  $request
-     * @param  int  $errno
-     * @param $curl
      * @return void
-     * @throws CurlSSLException
-     * @throws CurlCallbackException
-     * @throws RequestException
      */
     protected function parseError(): void
     {
