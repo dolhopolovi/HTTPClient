@@ -16,5 +16,5 @@ abstract class ACurlClientContextExecutor
     public abstract function execute(): ResponseInterface;
     protected abstract function parseError(): void;
 
-    protected abstract function __destruct();
+    public abstract function __destruct();
 }
