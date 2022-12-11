@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Factory\Impl;
 
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTO;
@@ -8,11 +10,14 @@ use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlBuilder\ICurlB
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Factory\IFactoryCurlBuilder;
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlBuilder\Impl\CurlBuilder;
 
-class FactoryCurlBuilderFactory implements IFactoryCurlBuilder {
+class FactoryCurlBuilderFactory implements IFactoryCurlBuilder
+{
 
-    public function __construct() {}
+    public function __construct() { }
 
-    public function init(IGenericCurlRequestDTO $genericCurlRequestDTO = new GenericCurlRequestDTO()): ICurlBuilder {
+    public function init(IGenericCurlRequestDTO $genericCurlRequestDTO = new GenericCurlRequestDTO()): ICurlBuilder
+    {
+
         return new CurlBuilder($genericCurlRequestDTO);
     }
 }
