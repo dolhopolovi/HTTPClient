@@ -45,6 +45,7 @@ class ResponseBuilder implements IResponseBuilder
         }
 
         $response->getBody()->write($this->responseService->getBody());
+        $response->getBody()->rewind();
 
         return $response;
     }
