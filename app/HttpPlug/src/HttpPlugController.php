@@ -17,7 +17,7 @@ class HttpPlugController
 
     public function __construct(
         private readonly ClientInterface $client,
-        private readonly IMiddlewareCollection $container = new ArrayMiddlewareCollection()
+        private readonly IMiddlewareCollection $handler = new ArrayMiddlewareCollection()
     ) {
     }
 
@@ -86,7 +86,7 @@ class HttpPlugController
      */
     private function request(RequestInterface $request): ResponseInterface
     {
-        $service = new MiddlewareService($this->container, $this->client);
+        $service = new MiddlewareService($this->handler, $this->client);
         return $service->sendRequestWithMiddlewares($request);
     }
 }
