@@ -4,12 +4,14 @@ namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlBuilder\
 
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\RequestInterface;
+use Merce\RestClient\HttpPlug\src\Support\FileSystem;
 use Merce\RestClient\HttpPlug\src\Support\EHttpMethod;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\ICurlRequestPack;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\CurlRequestPack;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTO;
 use Merce\RestClient\HttpPlug\src\Core\Builder\Request\Impl\RequestBuilder;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlRequestDTO;
+use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlExtraParamPack;
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlBuilder\ICurlBuilder;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlRequestDTOHttpMethod;
 
