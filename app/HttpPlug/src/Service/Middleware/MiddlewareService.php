@@ -41,7 +41,7 @@ class MiddlewareService
         $middlewaresIterator = $this->container->getReverseIterator();
 
         foreach ($middlewaresIterator as $middleware) {
-            $response = $middleware->handleForResponse($response, $request);
+            $response = $middleware->handleForResponse($request, $response);
         }
         return $response;
     }
