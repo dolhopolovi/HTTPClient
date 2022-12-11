@@ -4,8 +4,6 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\Core\Middleware\IMiddleware;
 
 interface IMiddlewareCollection
