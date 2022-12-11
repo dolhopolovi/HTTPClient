@@ -7,9 +7,8 @@ namespace Merce\RestClient\HttpPlug\src\Core\Middleware\Impl;
 use Http\Message\Authentication;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Client\ClientExceptionInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 use Merce\RestClient\HttpPlug\src\Core\Middleware\IMiddleware;
-
 
 class AuthMiddleware implements IMiddleware
 {
@@ -22,7 +21,7 @@ class AuthMiddleware implements IMiddleware
     /**
      * @param  RequestInterface  $request
      * @return RequestInterface
-     * @throws \Psr\SimpleCache\InvalidArgumentException|ClientExceptionInterface
+     * @throws InvalidArgumentException
      */
     public function handleForRequest(RequestInterface $request): RequestInterface
     {
@@ -37,6 +36,7 @@ class AuthMiddleware implements IMiddleware
      */
     public function handleForResponse(RequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+
         return $response;
     }
 }
