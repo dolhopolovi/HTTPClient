@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor;
 
 use Psr\Http\Message\ResponseInterface;
@@ -9,12 +11,13 @@ abstract class ACurlClientContextExecutor
 {
 
     public function __construct(
-        private ICurlRequestPack $curlGenericRequestBuilder
+        protected readonly ICurlRequestPack $curlGenericRequestBuilder
     ) {
     }
 
     public abstract function execute(): ResponseInterface;
-    protected abstract function parseError(): void;
 
     public abstract function __destruct();
+
+    protected abstract function parseError(): void;
 }
