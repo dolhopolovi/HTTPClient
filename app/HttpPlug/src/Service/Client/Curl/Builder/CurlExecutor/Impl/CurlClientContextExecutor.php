@@ -33,8 +33,8 @@ class CurlClientServiceExecutor
 
         $headerSize = curl_getinfo($this->curl, CURLINFO_HEADER_SIZE);
 
-        $header = substr($this->curl, 0, $headerSize);
-        $body = substr($this->curl, $headerSize);
+        $header = substr($response, 0, $headerSize);
+        $body = substr($response, $headerSize);
 
         return (new ResponseBuilder())
         ->parseHeaderLine($header)
