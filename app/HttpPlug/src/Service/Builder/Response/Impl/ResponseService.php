@@ -60,7 +60,7 @@ class ResponseService implements IResponseService {
 
         $data = [
             'statusCode' => (int) $parts[1],
-            'reasonPhrase' => count($parts) > 2 ? $parts[2] : '',
+            'humanizedReponse' => count($parts) > 2 ? $parts[2] : '',
             'protocolVersion' => substr($parts[0], 5)
         ];
 
