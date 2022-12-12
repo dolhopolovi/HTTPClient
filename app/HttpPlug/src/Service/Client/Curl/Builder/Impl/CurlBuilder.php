@@ -136,9 +136,13 @@ class CurlBuilder implements ICurlBuilder
     public function buildRequest(): ICurlRequestPack
     {
 
+        $this->curlOptCheckFlagList();
+
+        $option = $this->genericCurlRequestDTO->get();
+
         $args = [
-            'option'  => $this->genericCurlRequestDTO->get(),
-            'request' => $this->buildPSRRequest(),
+            'option' => $option,
+            'request' => (new RequestBuilder())->setUri($option[CURLOPT_URL])->setMethod(EHttpMethod::from($option[CURLOPT_CUSTOMREQUEST]))->getRequest()
         ];
 
         //read only object
