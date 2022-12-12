@@ -4,17 +4,19 @@ namespace Merce\RestClient\Test\Unit\HttpPlug\Builder\Response\Middleware\Collec
 
 use ReflectionClass;
 use PHPUnit\Framework\TestCase;
+use Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection\IMiddlewareCollection;
 use Merce\RestClient\HttpPlug\src\DTO\Middleware\Collection\Impl\ArrayMiddlewareCollection;
 
 class ArrayMiddlewareCollectionTest extends TestCase
 {
-    public function testGetForwardIterator(): void {
-        $collection = new ArrayMiddlewareCollection();
-        $reflection = new ReflectionClass($collection);
-        $prop = $reflection->getProperty('middleWareCollection');
-        $prop->setValue($collection, [1, 2, 3, 4]);
+    private IMiddlewareCollection $collection;
 
-        foreach($collection->getForwardIterator() as $item) {
+    public function testGetForwardIterator(): void {
+        $reflection = new ReflectionClass($this->collection);
+        $prop = $reflection->getProperty('middleWareCollection');
+        $prop->setValue($this->collection, [1, 2, 3, 4]);
+
+        foreach($this->collection->getForwardIterator() as $item) {
 
             if($item === 1) {
                 $this->assertTrue(true);
@@ -25,12 +27,11 @@ class ArrayMiddlewareCollectionTest extends TestCase
     }
 
     public function testGetReverseIterator() {
-        $collection = new ArrayMiddlewareCollection();
-        $reflection = new ReflectionClass($collection);
+        $reflection = new ReflectionClass($this->collection);
         $prop = $reflection->getProperty('middleWareCollection');
-        $prop->setValue($collection, ['a', 'b', 'c']);
+        $prop->setValue($this->collection, ['a', 'b', 'c']);
 
-        foreach($collection->getReverseIterator() as $item) {
+        foreach($this->collection->getReverseIterator() as $item) {
 
             if($item === 'c') {
                 $this->assertTrue(true);
@@ -38,5 +39,13 @@ class ArrayMiddlewareCollectionTest extends TestCase
             }
             $this->fail();
         }
+    }
+
+    public function setUp(): void
+    {
+
+        parent::setUp(); 
+
+        $this->collection = new ArrayMiddlewareCollection();
     }
 }
