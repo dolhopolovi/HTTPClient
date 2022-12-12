@@ -133,14 +133,6 @@ class CurlBuilder implements ICurlBuilder
         return $this;
     }
 
-    public function buildPSRRequest(): RequestInterface
-    {
-
-        $option = $this->genericCurlRequestDTO->get();
-
-        return (new RequestBuilder())->setUri($option[CURLOPT_URL])->setMethod(EHttpMethod::from($option[CURLOPT_CUSTOMREQUEST]))->getRequest();
-    }
-
     public function buildRequest(): ICurlRequestPack
     {
 
