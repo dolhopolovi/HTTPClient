@@ -2,12 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlBuilder;
+namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder;
 
 use Nyholm\Psr7\Stream;
-use Psr\Http\Message\RequestInterface;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\ICurlRequestPack;
-use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\Impl\CurlClientContextExecutor;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\Impl\CurlClientContextExecutor;
 
 interface ICurlBuilder
 {
@@ -25,8 +24,6 @@ interface ICurlBuilder
     public function setHttpMethod(string $httpMethod, ?Stream $body = null): self;
 
     public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): self;
-
-    public function buildPSRRequest(): RequestInterface;
 
     public function buildRequest(): ICurlRequestPack;
 

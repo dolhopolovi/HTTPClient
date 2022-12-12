@@ -6,10 +6,11 @@ namespace Merce\RestClient\Test\Unit\HttpPlug;
 
 use Nyholm\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\HttpPlugController;
+use Merce\RestClient\HttpPlug\src\Support\EHttpMethod;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\CurlHttpClient;
+use Merce\RestClient\HttpPlug\src\Core\Builder\Request\Impl\RequestBuilder;
 
 /**
  * Test HttpPlugController class
@@ -19,7 +20,7 @@ class HttpPlugControllerTest extends TestCase
 
     private CurlHttpClient $client;
 
-    private HttpPlugController $browser;
+    private HttpPlugController $httpPlugController;
 
     /**
      * Test basic http methods
@@ -37,7 +38,9 @@ class HttpPlugControllerTest extends TestCase
 
         $this->client->expects($this->once())->method('sendRequest')->willReturn($response);
 
-        $actual = $this->browser->$method('http://google.com/', $headers, $content);
+        $request = (new RequestBuilder())->setUri('http://google.com/')->setMethod(EHttpMethod::from(strtoupper($method)))->setHeaders($headers)->setBody($content)->getRequest();
+
+        $actual = $this->httpPlugController->$method($request);
 
         $this->assertInstanceOf(ResponseInterface::class, $actual);
         $this->assertEquals($response->getBody()->__toString(), $actual->getBody()->__toString());
@@ -71,6 +74,6 @@ class HttpPlugControllerTest extends TestCase
 
         $this->client = $this->getMockBuilder(CurlHttpClient::class)->disableOriginalConstructor()->getMock();
 
-        $this->browser = new HttpPlugController($this->client, new Psr17Factory());
+        $this->httpPlugController = new HttpPlugController(client: $this->client);
     }
 }

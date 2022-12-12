@@ -9,8 +9,8 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\Support\Arr;
 use Merce\RestClient\HttpPlug\src\Core\Client\AHttpClient;
-use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Factory\IFactoryCurlBuilder;
-use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Factory\Impl\FactoryCurlBuilderFactory;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Factory\IFactoryCurlBuilder;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Factory\Impl\FactoryCurlBuilderFactory;
 
 class CurlHttpClient extends AHttpClient implements ClientInterface
 {
@@ -26,12 +26,8 @@ class CurlHttpClient extends AHttpClient implements ClientInterface
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
 
-        return $this->factoryCurlBuilder->init()
-                                        ->setCURLOPTCUSTOMREQUEST($request->getMethod())
-                                        ->setCURLOPTURL($request->getUri()->__toString())
-                                        ->setCURLOPTHTTPHEADER(Arr::flatMap($request->getHeaders()))
-                                        ->setCURLOPTSSLVERIFYPEER(false)
-                                        ->buildExecutionContext()
+        return $this->factoryCurlBuilder->init()->setGenericCurlExtraParamPack()->setCURLOPTCUSTOMREQUEST($request->getMethod())->setCURLOPTURL($request->getUri()->__toString())
+                                        ->setCURLOPTHTTPHEADER(Arr::flatMap($request->getHeaders()))->setCURLOPTSSLVERIFYPEER()->setCURLOPTSTDERR()->buildExecutionContext()
                                         ->execute();
     }
 }

@@ -4,9 +4,12 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\Test\Unit\HttpPlug\Middleware;
 
-use Nyholm\Psr7\Request;
 use PHPUnit\Framework\TestCase;
+use Merce\RestClient\HttpPlug\src\Support\EHttpMethod;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
+use Merce\RestClient\HttpPlug\src\Core\Builder\Request\Impl\RequestBuilder;
+use Merce\RestClient\AuthTokenPlug\src\DTO\BasicAuthToken\BasicAuthTokenCredentialData;
+use Merce\RestClient\AuthTokenPlug\src\Core\TokenController\BasicAuthToken\ManualBasicAuthTokenController;
 
 /**
  * Test BasicAuthMiddleware class
@@ -22,11 +25,9 @@ class BasicAuthTest extends TestCase
     public function testBasicAuthHeader(): void
     {
 
-        $request = new Request('GET', '/test-url');
-
-//        $middleware = new BasicAuthMiddleware('username', 'password');
-//        $newRequest = $middleware->handleForRequest($request);
-//        $this->assertEquals('Basic ' . base64_encode('username:password'), $newRequest->getHeaderLine('Authorization'));
+        $authController = new ManualBasicAuthTokenController(new BasicAuthTokenCredentialData('username', 'password'));
+        $request = $authController->authenticate((new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest());
+        $this->assertEquals('Basic ' . base64_encode('username:password'), $request->getHeaderLine('Authorization'));
     }
 
     /**
@@ -39,6 +40,6 @@ class BasicAuthTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-//        $middleware = new BasicAuthMiddleware('', '');
+        $middleware = new ManualBasicAuthTokenController(new BasicAuthTokenCredentialData('', ''));
     }
 }

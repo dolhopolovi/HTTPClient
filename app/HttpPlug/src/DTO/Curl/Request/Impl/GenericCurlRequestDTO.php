@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl;
 
-use Merce\RestClient\HttpPlug\src\Support\FileSystem;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTO;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlExtraParamPack;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTOHttpMethod;
@@ -12,18 +11,10 @@ use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTOHttpMet
 class GenericCurlRequestDTO implements IGenericCurlRequestDTO
 {
 
-    use FileSystem;
-
     private array $option = [];
 
     public function __construct()
     {
-
-        $defOptions = [
-            CURLOPT_STDERR => fopen($this->getLibRoot() . '/log/curl-log.log', 'w+'),
-        ];
-
-        $this->option += $defOptions;
     }
 
     public function setCURLOPTCUSTOMREQUEST(string $CURLOPT_CUSTOMREQUEST): IGenericCurlRequestDTO
@@ -79,6 +70,13 @@ class GenericCurlRequestDTO implements IGenericCurlRequestDTO
     {
 
         return $this->option;
+    }
+
+    public function setCURLOPTSTDERR($resource): IGenericCurlRequestDTO
+    {
+
+        $this->option[CURLOPT_STDERR] = $resource;
+        return $this;
     }
 
     public function setGenericCurlExtraParamPack(IGenericCurlExtraParamPack $genericCurlExtraParamPack): IGenericCurlRequestDTO

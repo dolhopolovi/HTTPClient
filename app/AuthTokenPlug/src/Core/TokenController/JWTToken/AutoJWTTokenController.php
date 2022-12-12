@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken;
 
-use Nyholm\Psr7\Request;
 use Http\Message\Authentication;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -64,8 +63,7 @@ class AutoJWTTokenController implements Authentication
     private function apiLogin(): ?string
     {
 
-        $request = new Request('GET', $this->jwtAuthData->request->getUri()->__toString());
-        $response = $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($this->jwtAuthData->request);
 
         if ($response->getStatusCode() !== 401) {
             return $response->getBody()->getContents();
