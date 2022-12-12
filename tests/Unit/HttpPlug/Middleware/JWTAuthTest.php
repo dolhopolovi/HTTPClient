@@ -28,11 +28,10 @@ class JWTAuthTest extends TestCase
     public function testBearerAuthListener(): void
     {
 
-//        $request = new Request('GET', '/');
-//        $middleware = AuthMiddleware::createBYToken('merce.com.secret.token');
-//        $newRequest = $middleware->handleForRequest($request);
-//
-//        $this->assertEquals('Bearer merce.com.secret.token', $newRequest->getHeaderLine('Authorization'));
+        $authController = new ManualJWTAuthTokenController('merce.com.secret.token');
+        $newRequest = $authController->authenticate((new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest());
+
+        $this->assertEquals('Bearer merce.com.secret.token', $newRequest->getHeaderLine('Authorization'));
     }
 
     /**
@@ -43,8 +42,8 @@ class JWTAuthTest extends TestCase
     public function testInvalidCredentials(): void
     {
 
-//        $this->expectException(InvalidArgumentException::class);
-//
-//        $middleware = AuthMiddleware::createBYToken('');
+        $this->expectException(InvalidArgumentException::class);
+
+        $authController = new ManualJWTAuthTokenController('');
     }
 }
