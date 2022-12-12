@@ -27,7 +27,7 @@ class ResponseServiceTest extends TestCase
         $reflection = new ReflectionClass($headerCollection);
         $prop = $reflection->getProperty('collection');
 
-        $header = $prop->getValue($headerCollection)[0];
+        [$header] = $prop->getValue($headerCollection);
 
         if ($header->headerHead === 'Test' && $header->headerTail === 'Value') {
             $this->assertTrue(true);
