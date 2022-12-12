@@ -67,6 +67,12 @@ class GenericCurlRequestDTO implements IGenericCurlRequestDTO
         return $this;
     }
 
+    public function setCURLOPTSTDERR($resource): IGenericCurlRequestDTO {
+
+        $this->option[CURLOPT_STDERR] = $resource;
+        return $this;
+    }
+
     public function get(): array
     {
 
