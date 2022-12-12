@@ -116,6 +116,8 @@ class CurlBuilder implements ICurlBuilder
                 }
         }
 
+        $this->genericCurlRequestDTO->setGenericCurlRequestDTOHttpMethod($genericCurlRequestDTOHttpMethod);
+
         return $this;
     }
 
