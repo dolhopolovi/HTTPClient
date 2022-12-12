@@ -63,9 +63,7 @@ class AutoJWTTokenController implements Authentication
      */
     private function apiLogin(): ?string
     {
-
-        $request = new Request('GET', $this->jwtAuthData->request->getUri()->__toString());
-        $response = $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($this->jwtAuthData->request);
 
         if ($response->getStatusCode() !== 401) {
             return $response->getBody()->getContents();
