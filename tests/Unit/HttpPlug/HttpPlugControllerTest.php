@@ -9,7 +9,9 @@ use PHPUnit\Framework\TestCase;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\HttpPlugController;
+use Merce\RestClient\HttpPlug\src\Support\EHttpMethod;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\CurlHttpClient;
+use Merce\RestClient\HttpPlug\src\Core\Builder\Request\Impl\RequestBuilder;
 
 /**
  * Test HttpPlugController class
@@ -19,7 +21,7 @@ class HttpPlugControllerTest extends TestCase
 
     private CurlHttpClient $client;
 
-    private HttpPlugController $browser;
+    private HttpPlugController $httpPlugController;
 
     /**
      * Test basic http methods
@@ -71,6 +73,6 @@ class HttpPlugControllerTest extends TestCase
 
         $this->client = $this->getMockBuilder(CurlHttpClient::class)->disableOriginalConstructor()->getMock();
 
-        $this->browser = new HttpPlugController($this->client, new Psr17Factory());
+        $this->httpPlugController = new HttpPlugController(client: $this->client);
     }
 }
