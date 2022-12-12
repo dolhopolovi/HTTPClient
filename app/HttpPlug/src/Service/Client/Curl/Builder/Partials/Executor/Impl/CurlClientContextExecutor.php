@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\Impl;
+namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\Impl;
 
 use CurlHandle;
 use Psr\Http\Message\ResponseInterface;
@@ -11,13 +11,12 @@ use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\ICurlRequestPack;
 use Merce\RestClient\HttpPlug\src\Core\Builder\Response\Impl\ResponseBuilder;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\Exception\CurlSSLException;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\Exception\CurlCallbackException;
-use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\CurlExecutor\ACurlClientContextExecutor;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\ACurlClientContextExecutor;
 
 class CurlClientContextExecutor extends ACurlClientContextExecutor
 {
 
     /**
-     * don't delete my bro this very impoertant
      *
      * @var resource|CurlHandle|null
      */
