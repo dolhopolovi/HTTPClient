@@ -35,7 +35,7 @@ class CurlHttpClientTest extends TestCase
         $request = new Request('GET', 'http://' . $host . ':8000');
 
         /** @var ClientInterface $client */
-        $client = new $client(new Psr17Factory(), []);
+        $client = new $client();
         $client->sendRequest($request);
     }
 
