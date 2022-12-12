@@ -39,7 +39,9 @@ class HttpPlugControllerTest extends TestCase
 
         $this->client->expects($this->once())->method('sendRequest')->willReturn($response);
 
-        $actual = $this->browser->$method('http://google.com/', $headers, $content);
+        $request = (new RequestBuilder())->setUri('http://google.com/')->setMethod(EHttpMethod::from(strtoupper($method)))->setHeaders($headers)->setBody($content)->getRequest();
+
+        $actual = $this->httpPlugController->$method($request);
 
         $this->assertInstanceOf(ResponseInterface::class, $actual);
         $this->assertEquals($response->getBody()->__toString(), $actual->getBody()->__toString());
