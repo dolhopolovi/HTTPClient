@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Merce\RestClient\Test\Unit\AuthTokenPlug\TokenManager;
 
 use Nyholm\Psr7\Stream;
+use Nyholm\Psr7\Request;
 use Nyholm\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
@@ -12,7 +13,11 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 use Psr\Http\Client\ClientExceptionInterface;
+use Merce\RestClient\HttpPlug\src\Support\EHttpMethod;
+use Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\JWTAuthData;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\CurlHttpClient;
+use Merce\RestClient\HttpPlug\src\Core\Builder\Request\Impl\RequestBuilder;
+use Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController;
 
 /**
  * Test JWTTokenManagerTest class
