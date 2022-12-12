@@ -121,6 +121,11 @@ class CurlBuilder implements ICurlBuilder
         return $this;
     }
 
+    public function setCURLOPTSTDERR(FileLoggerService $loggerService = new FileLoggerService()): ICurlBuilder {
+        $this->genericCurlRequestDTO->setCURLOPTSTDERR($loggerService->getResource());
+        return $this;
+    }
+
     public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): ICurlBuilder
     {
 
