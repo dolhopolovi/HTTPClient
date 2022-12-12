@@ -173,7 +173,7 @@ class CurlBuilder implements ICurlBuilder
 
         $data = $this->buildRequest();
 
-        return new CurlClientContextExecutor($data);
+        return new \Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\Impl\CurlClientContextExecutor($data);
     }
 
     private function getProtocolVersion(string $CURLOPT_HTTP_VERSION): int
