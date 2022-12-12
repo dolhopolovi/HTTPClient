@@ -52,7 +52,7 @@ class JWTTokenManagerTest extends TestCase
         );
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturn(200);
 
-//        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
         $token = $jwtTokenManager->get();
 
@@ -71,9 +71,8 @@ class JWTTokenManagerTest extends TestCase
      */
     public function testJWTTokenManagerTokenExpire(): void
     {
-
         $jwtAuthData = [
-            'sourceRoute' => '/test.login',
+            'request'     => (new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest(),
             'username'    => 'username_token_exp',
             'password'    => 'password_toke_exp',
         ];
@@ -85,17 +84,17 @@ class JWTTokenManagerTest extends TestCase
         $this->mockStream->expects($this->any())->method('getContents')->willReturn($token);
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturnOnConsecutiveCalls(200, 401);
 
-//        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+        $jwtTokenManager = new AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
-        $token = $jwtTokenManager->get();
+        $request = $jwtTokenManager->authenticate((new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest());
 
-        $this->assertEquals(".$base64UrlPayload.", $token);
+        $this->assertEquals("Bearer .$base64UrlPayload.", $request->getHeaderLine('Authorization'));
 
         sleep(6);
 
-        $token = $jwtTokenManager->get();
+        $request = $jwtTokenManager->authenticate((new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest());
 
-        $this->assertEquals(null, $token);
+        $this->assertEquals(null, $request->getHeaderLine('Authorization') ?: null);
     }
 
     /**
@@ -109,18 +108,18 @@ class JWTTokenManagerTest extends TestCase
     {
 
         $jwtAuthData = [
-            'sourceRoute' => '/test.login',
+            'request' => (new RequestBuilder())->setUri('/test1.login')->setMethod(EHttpMethod::GET)->getRequest(),
             'username'    => 'username_auth',
             'password'    => 'password_auth',
         ];
 
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturn(401);
 
-//        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
-        $token = $jwtTokenManager->get();
+        $request = $jwtTokenManager->authenticate((new RequestBuilder())->setUri('/test1.login')->setMethod(EHttpMethod::GET)->getRequest());
 
-        $this->assertEquals(null, $token);
+        $this->assertEquals(null, $request->getHeaderLine('Authorization') ?: null);
     }
 
     /**
