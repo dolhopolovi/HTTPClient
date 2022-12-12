@@ -25,8 +25,6 @@ interface ICurlBuilder
 
     public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): self;
 
-    public function buildPSRRequest(): RequestInterface;
-
     public function buildRequest(): ICurlRequestPack;
 
     public function buildExecutionContext(): CurlClientContextExecutor;
