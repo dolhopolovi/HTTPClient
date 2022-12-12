@@ -27,10 +27,12 @@ class CurlHttpClient extends AHttpClient implements ClientInterface
     {
 
         return $this->factoryCurlBuilder->init()
+                                        ->setGenericCurlExtraParamPack()
                                         ->setCURLOPTCUSTOMREQUEST($request->getMethod())
                                         ->setCURLOPTURL($request->getUri()->__toString())
                                         ->setCURLOPTHTTPHEADER(Arr::flatMap($request->getHeaders()))
                                         ->setCURLOPTSSLVERIFYPEER(false)
+                                        ->setCURLOPTSTDERR()
                                         ->buildExecutionContext()
                                         ->execute();
     }
