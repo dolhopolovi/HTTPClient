@@ -5,6 +5,11 @@ declare(strict_types = 1);
 namespace Merce\RestClient\Test\Unit\HttpPlug\Middleware;
 
 use PHPUnit\Framework\TestCase;
+use Merce\RestClient\HttpPlug\src\Support\EHttpMethod;
+use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
+use Merce\RestClient\HttpPlug\src\Core\Builder\Request\Impl\RequestBuilder;
+use Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\ManualJWTAuthTokenController;
+
 //use Merce\RestClient\HttpPlug\src\Core\Middleware\Impl\AuthMiddleware;
 //use Merce\RestClient\HttpPlug\src\Exception\Impl\InvalidArgumentException;
 
