@@ -27,7 +27,6 @@ class JWTTokenParserTest extends TestCase
 
         $jwtTokenParser = new JWTTokenParser();
 
-        /* @var \Merce\RestClient\AuthTokenPlug\src\DTO\JWTToknen\TokenPayLoad $tokenPayload */
         $tokenPayload = $jwtTokenParser->parseTokenPayload($token);
 
         $expected_tokenPayload = new TokenPayLoad(new TokenPayloadUser('John', 'Doe'), null);

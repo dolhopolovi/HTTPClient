@@ -17,6 +17,7 @@ use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlExtraParamPac
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlRequestDTOHttpMethod;
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Logger\FileLoggerService;
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Exception\InvalidCurlRequestConstruction;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\Impl\CurlClientContextExecutor;
 
 class CurlBuilder implements ICurlBuilder
 {
@@ -25,7 +26,6 @@ class CurlBuilder implements ICurlBuilder
 
     public function __construct(private readonly IGenericCurlRequestDTO $genericCurlRequestDTO = new GenericCurlRequestDTO())
     {
-
     }
 
     public function setGenericCurlExtraParamPack(): ICurlBuilder
@@ -121,11 +121,6 @@ class CurlBuilder implements ICurlBuilder
         return $this;
     }
 
-    public function setCURLOPTSTDERR(FileLoggerService $loggerService = new FileLoggerService()): ICurlBuilder {
-        $this->genericCurlRequestDTO->setCURLOPTSTDERR($loggerService->getResource());
-        return $this;
-    }
-
     public function setCURLOPTSSLVERIFYPEER(bool $CURLOPT_SSL_VERIFYPEER = false): ICurlBuilder
     {
 
@@ -133,6 +128,9 @@ class CurlBuilder implements ICurlBuilder
         return $this;
     }
 
+    /**
+     * @throws InvalidCurlRequestConstruction
+     */
     public function buildRequest(): ICurlRequestPack
     {
 
@@ -141,8 +139,8 @@ class CurlBuilder implements ICurlBuilder
         $option = $this->genericCurlRequestDTO->get();
 
         $args = [
-            'option' => $option,
-            'request' => (new RequestBuilder())->setUri($option[CURLOPT_URL])->setMethod(EHttpMethod::from($option[CURLOPT_CUSTOMREQUEST]))->getRequest()
+            'option'  => $option,
+            'request' => (new RequestBuilder())->setUri($option[CURLOPT_URL])->setMethod(EHttpMethod::from($option[CURLOPT_CUSTOMREQUEST]))->getRequest(),
         ];
 
         //read only object
@@ -150,30 +148,12 @@ class CurlBuilder implements ICurlBuilder
         return new CurlRequestPack(...$args);
     }
 
-    private function curlOptCheckFlagList(): void {
-        $mandatoryFlagList = [
-            CURLOPT_CUSTOMREQUEST => 0,
-            CURLOPT_URL => 0,
-            CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_STDERR => 0,
-            CURLOPT_VERBOSE => 0,
-            CURLOPT_FAILONERROR => 0,
-            CURLOPT_RETURNTRANSFER => 0,
-            CURLOPT_HEADER => 0,
-
-        ];
-
-        if(array_diff_key($mandatoryFlagList, $this->genericCurlRequestDTO->get())) {
-            throw new InvalidCurlRequestConstruction('Error: mandatory flags were not provided');
-        }
-    }
-
-    public function buildExecutionContext(): \Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\Impl\CurlClientContextExecutor
+    public function buildExecutionContext(): CurlClientContextExecutor
     {
 
         $data = $this->buildRequest();
 
-        return new \Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\Impl\CurlClientContextExecutor($data);
+        return new CurlClientContextExecutor($data);
     }
 
     private function getProtocolVersion(string $CURLOPT_HTTP_VERSION): int
@@ -185,6 +165,36 @@ class CurlBuilder implements ICurlBuilder
             '2.0'   => CURL_HTTP_VERSION_2_0,
             default => 0,
         };
+    }
+
+    public function setCURLOPTSTDERR(FileLoggerService $loggerService = new FileLoggerService()): ICurlBuilder
+    {
+
+        $this->genericCurlRequestDTO->setCURLOPTSTDERR($loggerService->getResource());
+        return $this;
+    }
+
+    /**
+     * @throws InvalidCurlRequestConstruction
+     */
+    private function curlOptCheckFlagList(): void
+    {
+
+        $mandatoryFlagList = [
+            CURLOPT_CUSTOMREQUEST  => 0,
+            CURLOPT_URL            => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_STDERR         => 0,
+            CURLOPT_VERBOSE        => 0,
+            CURLOPT_FAILONERROR    => 0,
+            CURLOPT_RETURNTRANSFER => 0,
+            CURLOPT_HEADER         => 0,
+
+        ];
+
+        if (array_diff_key($mandatoryFlagList, $this->genericCurlRequestDTO->get())) {
+            throw new InvalidCurlRequestConstruction('Error: mandatory flags were not provided');
+        }
     }
 }
 

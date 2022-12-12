@@ -4,13 +4,9 @@ declare(strict_types = 1);
 
 namespace Merce\RestClient\Test\Unit\HttpPlug\Client;
 
-use ReflectionMethod;
-use Nyholm\Psr7\Stream;
 use Nyholm\Psr7\Request;
-use ReflectionException;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Client\ClientExceptionInterface;
 use Merce\RestClient\HttpPlug\src\Exception\Impl\ClientException;
 use Merce\RestClient\HttpPlug\src\Core\Client\Impl\Curl\CurlHttpClient;

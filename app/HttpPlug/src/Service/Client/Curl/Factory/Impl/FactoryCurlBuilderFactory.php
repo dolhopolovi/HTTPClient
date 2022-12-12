@@ -7,6 +7,7 @@ namespace Merce\RestClient\HttpPlug\src\Service\Client\Curl\Factory\Impl;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTO;
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\ICurlBuilder;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl\GenericCurlRequestDTO;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Impl\CurlBuilder;
 use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Factory\IFactoryCurlBuilder;
 
 class FactoryCurlBuilderFactory implements IFactoryCurlBuilder
@@ -17,6 +18,6 @@ class FactoryCurlBuilderFactory implements IFactoryCurlBuilder
     public function init(IGenericCurlRequestDTO $genericCurlRequestDTO = new GenericCurlRequestDTO()): ICurlBuilder
     {
 
-        return new \Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Impl\CurlBuilder($genericCurlRequestDTO);
+        return new CurlBuilder($genericCurlRequestDTO);
     }
 }

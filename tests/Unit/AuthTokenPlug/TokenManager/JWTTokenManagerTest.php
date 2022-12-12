@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Merce\RestClient\Test\Unit\AuthTokenPlug\TokenManager;
 
 use Nyholm\Psr7\Stream;
-use Nyholm\Psr7\Request;
 use Nyholm\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
@@ -42,9 +41,9 @@ class JWTTokenManagerTest extends TestCase
     {
 
         $jwtAuthData = [
-            'sourceRoute' => '/test.login',
-            'username'    => 'username',
-            'password'    => 'password',
+            'request'  => (new RequestBuilder())->setUri('/test2.login')->setMethod(EHttpMethod::GET)->getRequest(),
+            'username' => 'username',
+            'password' => 'password',
         ];
 
         $this->mockStream->expects($this->any())->method('getContents')->willReturn(
@@ -52,13 +51,13 @@ class JWTTokenManagerTest extends TestCase
         );
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturn(200);
 
-        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+        $jwtTokenManager = new AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
-        $token = $jwtTokenManager->get();
+        $request = $jwtTokenManager->authenticate((new RequestBuilder())->setUri('/test2.login')->setMethod(EHttpMethod::GET)->getRequest());
 
         $this->assertEquals(
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-            $token
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+            $request->getHeaderLine('Authorization')
         );
     }
 
@@ -71,10 +70,11 @@ class JWTTokenManagerTest extends TestCase
      */
     public function testJWTTokenManagerTokenExpire(): void
     {
+
         $jwtAuthData = [
-            'request'     => (new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest(),
-            'username'    => 'username_token_exp',
-            'password'    => 'password_toke_exp',
+            'request'  => (new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest(),
+            'username' => 'username_token_exp',
+            'password' => 'password_toke_exp',
         ];
 
         $payload = json_encode(['name' => 'Jan Kowalski', 'exp' => time() + 5]);
@@ -94,7 +94,7 @@ class JWTTokenManagerTest extends TestCase
 
         $request = $jwtTokenManager->authenticate((new RequestBuilder())->setUri('/test.login')->setMethod(EHttpMethod::GET)->getRequest());
 
-        $this->assertEquals(null, $request->getHeaderLine('Authorization') ?: null);
+        $this->assertEquals(null, $request->getHeaderLine('Authorization') ? : null);
     }
 
     /**
@@ -108,18 +108,18 @@ class JWTTokenManagerTest extends TestCase
     {
 
         $jwtAuthData = [
-            'request' => (new RequestBuilder())->setUri('/test1.login')->setMethod(EHttpMethod::GET)->getRequest(),
-            'username'    => 'username_auth',
-            'password'    => 'password_auth',
+            'request'  => (new RequestBuilder())->setUri('/test1.login')->setMethod(EHttpMethod::GET)->getRequest(),
+            'username' => 'username_auth',
+            'password' => 'password_auth',
         ];
 
         $this->mockResponse->expects($this->any())->method('getStatusCode')->willReturn(401);
 
-        $jwtTokenManager = new \Merce\RestClient\AuthTokenPlug\src\Core\TokenController\JWTToken\AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
+        $jwtTokenManager = new AutoJWTTokenController(new JWTAuthData(...$jwtAuthData), $this->mockClient);
 
         $request = $jwtTokenManager->authenticate((new RequestBuilder())->setUri('/test1.login')->setMethod(EHttpMethod::GET)->getRequest());
 
-        $this->assertEquals(null, $request->getHeaderLine('Authorization') ?: null);
+        $this->assertEquals(null, $request->getHeaderLine('Authorization') ? : null);
     }
 
     /**

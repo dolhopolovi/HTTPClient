@@ -6,7 +6,6 @@ namespace Merce\RestClient\Test\Unit\HttpPlug;
 
 use Nyholm\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\HttpPlugController;
 use Merce\RestClient\HttpPlug\src\Support\EHttpMethod;

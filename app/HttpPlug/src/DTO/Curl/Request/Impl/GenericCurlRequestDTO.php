@@ -7,7 +7,6 @@ namespace Merce\RestClient\HttpPlug\src\DTO\Curl\Request\Impl;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTO;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlExtraParamPack;
 use Merce\RestClient\HttpPlug\src\DTO\Curl\Request\IGenericCurlRequestDTOHttpMethod;
-use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Logger\FileLoggerService;
 
 class GenericCurlRequestDTO implements IGenericCurlRequestDTO
 {
@@ -67,16 +66,17 @@ class GenericCurlRequestDTO implements IGenericCurlRequestDTO
         return $this;
     }
 
-    public function setCURLOPTSTDERR($resource): IGenericCurlRequestDTO {
-
-        $this->option[CURLOPT_STDERR] = $resource;
-        return $this;
-    }
-
     public function get(): array
     {
 
         return $this->option;
+    }
+
+    public function setCURLOPTSTDERR($resource): IGenericCurlRequestDTO
+    {
+
+        $this->option[CURLOPT_STDERR] = $resource;
+        return $this;
     }
 
     public function setGenericCurlExtraParamPack(IGenericCurlExtraParamPack $genericCurlExtraParamPack): IGenericCurlRequestDTO
