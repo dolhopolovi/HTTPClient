@@ -12,8 +12,6 @@ use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Logger\Fi
 class GenericCurlRequestDTO implements IGenericCurlRequestDTO
 {
 
-    use FileSystem;
-
     private array $option = [];
 
     public function __construct()
