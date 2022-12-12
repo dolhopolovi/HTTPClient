@@ -150,7 +150,25 @@ class CurlBuilder implements ICurlBuilder
         return new CurlRequestPack(...$args);
     }
 
-    public function buildExecutionContext(): CurlClientContextExecutor
+    private function curlOptCheckFlagList(): void {
+        $mandatoryFlagList = [
+            CURLOPT_CUSTOMREQUEST => 0,
+            CURLOPT_URL => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_STDERR => 0,
+            CURLOPT_VERBOSE => 0,
+            CURLOPT_FAILONERROR => 0,
+            CURLOPT_RETURNTRANSFER => 0,
+            CURLOPT_HEADER => 0,
+
+        ];
+
+        if(array_diff_key($mandatoryFlagList, $this->genericCurlRequestDTO->get())) {
+            throw new InvalidCurlRequestConstruction('Error: mandatory flags were not provided');
+        }
+    }
+
+    public function buildExecutionContext(): \Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Partials\Executor\Impl\CurlClientContextExecutor
     {
 
         $data = $this->buildRequest();
