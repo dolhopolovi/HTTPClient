@@ -44,7 +44,7 @@ class ArrayMiddlewareCollectionTest extends TestCase
     public function setUp(): void
     {
 
-        parent::setUp(); 
+        parent::setUp();
 
         $this->collection = new ArrayMiddlewareCollection();
     }
