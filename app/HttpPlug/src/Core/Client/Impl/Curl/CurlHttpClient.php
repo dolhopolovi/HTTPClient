@@ -9,8 +9,8 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Merce\RestClient\HttpPlug\src\Support\Arr;
 use Merce\RestClient\HttpPlug\src\Core\Client\AHttpClient;
-use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Factory\IFactoryCurlBuilder;
-use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Builder\Factory\Impl\FactoryCurlBuilderFactory;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Factory\IFactoryCurlBuilder;
+use Merce\RestClient\HttpPlug\src\Service\Client\Curl\Factory\Impl\FactoryCurlBuilderFactory;
 
 class CurlHttpClient extends AHttpClient implements ClientInterface
 {
