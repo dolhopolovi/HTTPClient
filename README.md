@@ -1,7 +1,5 @@
-# Merce Rest Client
+Rest Client
     Author Ihor-Severyn Dolhopolov
-    Projekt został stworzony na potrzeby rekrutacyjne merce.com
-    Projekt spełnia pierwszą część zadania rekrutacyjnego
 
 # Podjęte decyzje projektowe
     Zostały użyte następujące standardy
