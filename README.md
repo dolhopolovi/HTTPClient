@@ -11,7 +11,7 @@ Rest Client
     PSR-17              http factories
     PSR-18              http client
 
-#    Struktura biblioteki merce-rest-client
+#    Struktura biblioteki rest-client
 >### HttpPlug moduł służy jako wtyczka do wysyłania żądań http
 >Struktura modułu 
 >>*    Middleware – zestaw klas, które mają być włączone przed i po wysłaniu zadania http
