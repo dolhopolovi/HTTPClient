@@ -1,35 +1,39 @@
-Rest Client
-    Author Ihor-Severyn Dolhopolov
+![HTTPClient](.github/logo.png?raw=true)
 
-# Podjęte decyzje projektowe
-    Zostały użyte następujące standardy
-    PSR-1/PSR-2/PSR-12  coding standarts
-    PSR-4               autoload
-    PSR-7               http message interface
-    PSR-15              http middleware
-    PSR-16              cache interface
-    PSR-17              http factories
-    PSR-18              http client
+# HTTPClient, PHP HTTP client
 
-#    Struktura biblioteki rest-client
->### HttpPlug moduł służy jako wtyczka do wysyłania żądań http
->Struktura modułu 
->>*    Middleware – zestaw klas, które mają być włączone przed i po wysłaniu zadania http
->>*    MiddlewareContainer – definiuje kolejność wykonywania klas
->>*    Support – metody pomocnicze 
->>*    HttpPlugController – kontroler modułu
->
->### AuthTokenPlug moduł służy jako wtyczka do obsługi tokenów autoryzacji
->Struktura modułu
->>*    TokenManager – kontroler tokenów
->>*    TokenParser – parser tokenów
->
->Cechy
->>*    Moduł jest przygotowany aby obsługiwać różne typy tokenów
->
->JWTAuthToken
->>*    Moduł implementuje cache dla tokenów
->>*    Moduł automatycznie odświeża token po wygaśnięciu
+HTTPClient is a PHP HTTP client that makes it easy to send HTTP requests and
+trivial to integrate with web services.
 
-# Tests
-    ./vendor/bin/phpunit --testsuite Unit
+- Simple interface for building query strings, POST requests, using HTTP cookies, 
+  uploading JSON data.
+- Uses PSR-7 interfaces for requests, responses.
+- Supports PSR-18 allowing interoperability between other PSR-18 HTTP Clients.
+- Middleware system allows you to augment and compose client behavior.
+
+PSR standards
+
+<pre>
+- PSR-12              coding standarts
+- PSR-4               autoload
+- PSR-7               http message interface
+- PSR-15              http middleware
+- PSR-16              cache interface
+- PSR-17              http factories
+- PSR-18              http client
+</pre>
+
+### 🐳 Needed tools
+
+1. Clone this project: `git clone git@github.com:dolhopolovi/HTTPClient.git`
+2. Move to the project folder: `cd HTTPClient`
+
+### 🔥 Application execution
+
+1. Install all the dependencies: `composer install`
+2. Then you'll have available application
+
+### ✅ Tests execution
+
+1. Install the dependencies if you haven't done it previously: `make build`
+2. Execute PHPUnit tests: `./vendor/bin/phpunit --testsuite Unit`
